@@ -1,0 +1,17 @@
+{
+  "appName": "Application Bundle",
+  "maxImagesDisplayed": 6,
+  "enableDarkMode": false,
+  "theme": "modern",
+  "gridColumns": 2,
+  "imageCornerRadius": 12,
+  "showImageTags": true,
+  "showImageDescriptions": true,
+  "enableImageAnimations": true,
+  "features": {
+    "enableCache": true,
+    "enableOfflineMode": true,
+    "enableImageSearch": false,
+    "enableImageSharing": true
+  }
+}
