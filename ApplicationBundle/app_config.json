@@ -1,0 +1,10 @@
+{
+  "appName": "Application Bundle",
+  "maxImagesDisplayed": 4,
+  "enableDarkMode": false,
+  "theme": "modern",
+  "features": {
+    "enableCache": true,
+    "enableOfflineMode": true
+  }
+}
