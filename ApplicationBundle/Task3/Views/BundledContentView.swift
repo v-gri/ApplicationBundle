@@ -15,17 +15,14 @@ struct BundledContentView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
-                // Configuration Info with reload indicator
                 configurationInfoSection
                 
-                // Search section (if enabled)
                 if bundleManager.appConfig?.features.effectiveEnableImageSearch == true {
                     searchSection
                 }
                 
-                // Bundled Images Section
                 bundledImagesSection
-                
+
                 Spacer()
             }
             .padding()
@@ -84,7 +81,6 @@ struct BundledContentView: View {
                 
                 Spacer()
                 
-                // Configuration source indicator
                 Text(bundleManager.configurationSource)
                     .font(.caption2)
                     .padding(.horizontal, 8)
@@ -102,7 +98,6 @@ struct BundledContentView: View {
                     configRow("Dark Mode:", config.enableDarkMode ? "Enabled" : "Disabled")
                     configRow("Theme:", config.theme.capitalized)
                     
-                    // Feature flags
                     HStack {
                         Text("Features:")
                             .font(.caption)
@@ -132,7 +127,6 @@ struct BundledContentView: View {
         .background((bundleManager.appConfig?.themeColor.opacity(0.1) ?? Color.blue.opacity(0.1)))
         .cornerRadius(10)
         .overlay(
-            // Reload indicator
             bundleManager.isReloading ?
             ProgressView()
                 .scaleEffect(0.8)

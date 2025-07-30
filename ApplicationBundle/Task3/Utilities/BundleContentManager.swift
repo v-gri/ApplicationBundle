@@ -72,7 +72,6 @@ final class BundleContentManager: ObservableObject {
     
     private func loadConfiguration() {
         guard let configURL = Bundle.main.url(forResource: "app_config", withExtension: "json") else {
-            print("❌ Configuration file not found in bundle")
             appConfig = .defaultConfig
             configurationSource = "Default (JSON not found)"
             return
@@ -82,9 +81,7 @@ final class BundleContentManager: ObservableObject {
             let data = try Data(contentsOf: configURL)
             appConfig = try JSONDecoder().decode(AppConfiguration.self, from: data)
             configurationSource = "JSON"
-            print("✅ Configuration loaded from JSON successfully")
         } catch {
-            print("❌ Error loading configuration: \(error)")
             appConfig = .defaultConfig
             configurationSource = "Default (JSON error)"
         }
@@ -103,15 +100,13 @@ final class BundleContentManager: ObservableObject {
                     tags: generateTags(from: imageName)
                 )
                 loadedImages.append(bundledImage)
-                print("✅ Loaded image: \(imageName)")
+                print("Loaded image: \(imageName)")
             } else {
-                print("⚠️ Image not found: \(imageName)")
+                print("Image not found: \(imageName)")
             }
         }
         
-        // If no actual images found in bundle, create placeholder images
         if loadedImages.isEmpty {
-            print("⚠️ No bundle images found, creating placeholders")
             loadedImages = createPlaceholderImages()
         }
         
@@ -126,7 +121,6 @@ final class BundleContentManager: ObservableObject {
         
         var images = bundledImages
         
-        // Apply search filter if search is enabled
         if config.features.effectiveEnableImageSearch && !searchText.isEmpty {
             images = images.filter { image in
                 image.title.localizedCaseInsensitiveContains(searchText) ||
@@ -135,11 +129,8 @@ final class BundleContentManager: ObservableObject {
             }
         }
         
-        // Apply max images limit
         let maxImages = config.maxImagesDisplayed
         filteredImages = Array(images.prefix(maxImages))
-        
-        print("📊 Applied configuration: showing \(filteredImages.count) of \(bundledImages.count) images")
     }
     
     private func createPlaceholderImages() -> [BundledImage] {
@@ -169,7 +160,6 @@ final class BundleContentManager: ObservableObject {
         let renderer = UIGraphicsImageRenderer(size: size)
         
         return renderer.image { context in
-            // Different gradients for variety
             let colorPairs = [
                 (UIColor.systemBlue, UIColor.systemPurple),
                 (UIColor.systemGreen, UIColor.systemTeal),
@@ -193,7 +183,6 @@ final class BundleContentManager: ObservableObject {
                 options: []
             )
             
-            // Add title text
             let attributes: [NSAttributedString.Key: Any] = [
                 .font: UIFont.systemFont(ofSize: 24, weight: .bold),
                 .foregroundColor: UIColor.white

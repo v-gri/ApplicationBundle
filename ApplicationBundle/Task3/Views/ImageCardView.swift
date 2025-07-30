@@ -14,7 +14,6 @@ struct ImageCardView: View {
     
     var body: some View {
         VStack(spacing: 8) {
-            // Image with dynamic corner radius
             Image(uiImage: bundledImage.image)
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -32,14 +31,12 @@ struct ImageCardView: View {
                     onTap()
                 }
             
-            // Content based on configuration
             VStack(spacing: 4) {
                 Text(bundledImage.title)
                     .font(.caption)
                     .bold()
                     .lineLimit(1)
                 
-                // Show description only if enabled in config
                 if config?.effectiveShowImageDescriptions == true {
                     Text(bundledImage.description)
                         .font(.caption2)
@@ -48,7 +45,6 @@ struct ImageCardView: View {
                         .multilineTextAlignment(.center)
                 }
                 
-                // Show tags only if enabled in config
                 if config?.effectiveShowImageTags == true && !bundledImage.tags.isEmpty {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 4) {
