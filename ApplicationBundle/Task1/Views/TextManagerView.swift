@@ -84,7 +84,7 @@ struct TextManagerView: View {
                         )
                 }
                 
-                Button("Save Text File") {
+                Button("Append Text to File") {
                     viewModel.saveTextFile()
                     focusedField = nil
                 }

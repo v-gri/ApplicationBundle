@@ -18,7 +18,42 @@ final class TextFileManager {
         self.documentsDirectory = directory
     }
     
-    // MARK: - Public Methods: file - save, load, delete, exist, size
+    // MARK: - Public Methods: file - append text, save, load, delete, exist, size
+    
+    func appendTextToFile(content: String, fileName: String) -> Result<Void, TextFileManagerError> {
+        guard isValidFileName(fileName) else {
+            return .failure(.invalidFileName)
+        }
+        
+        let fileURL = documentsDirectory.appendingPathComponent(fileName)
+        
+        if !FileManager.default.fileExists(atPath: fileURL.path) {
+            do {
+                try content.write(to: fileURL, atomically: true, encoding: .utf8)
+                return .success(())
+            } catch {
+                return .failure(.writeError(error))
+            }
+        }
+        
+        do {
+            let fileHandle = try FileHandle(forWritingTo: fileURL)
+            defer { fileHandle.closeFile() }
+            
+            fileHandle.seekToEndOfFile()
+            
+            let existingContent = try String(contentsOf: fileURL, encoding: .utf8)
+            let contentToAppend = existingContent.isEmpty ? content : "\n\(content)"
+            
+            if let data = contentToAppend.data(using: .utf8) {
+                fileHandle.write(data)
+            }
+            
+            return .success(())
+        } catch {
+            return .failure(.appendError(error))
+        }
+    }
     
     func saveTextFile(content: String, fileName: String) -> Result<Void, TextFileManagerError> {
         guard isValidFileName(fileName) else {
@@ -109,11 +144,9 @@ final class TextFileManager {
             return .failure(.readError(error))
         }
     }
-    
-    // MARK: - Private Methods: file - valid name
-    
-
 }
+
+// MARK: - Private Methods: file - valid name
 
 extension TextFileManager {
     private func isValidFileName(_ fileName: String) -> Bool {

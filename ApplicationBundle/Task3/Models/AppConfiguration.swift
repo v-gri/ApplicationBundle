@@ -17,7 +17,19 @@ struct AppConfiguration: Codable {
     let showImageTags: Bool?
     let showImageDescriptions: Bool?
     let enableImageAnimations: Bool?
+    let imageNames: [String]?
     let features: AppFeatures
+    
+    var effectiveImageNames: [String] {
+        return imageNames ?? [
+            "sample_nature_1",
+            "sample_nature_2",
+            "sample_city_1",
+            "sample_city_2",
+            "sample_abstract_1",
+            "sample_abstract_2"
+        ]
+    }
     
     var effectiveGridColumns: Int {
         return gridColumns ?? 2
@@ -70,6 +82,14 @@ struct AppConfiguration: Codable {
         showImageTags: true,
         showImageDescriptions: true,
         enableImageAnimations: true,
+        imageNames: [
+            "sample_nature_1",
+            "sample_nature_2",
+            "sample_city_1",
+            "sample_city_2",
+            "sample_abstract_1",
+            "sample_abstract_2"
+        ],
         features: AppFeatures(enableCache: true, enableOfflineMode: true)
     )
 }

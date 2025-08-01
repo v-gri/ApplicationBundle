@@ -8,6 +8,14 @@
   "showImageTags": true,
   "showImageDescriptions": true,
   "enableImageAnimations": true,
+  "imageNames": [
+    "sample_nature_1",
+    "sample_nature_2",
+    "sample_city_1",
+    "sample_city_2",
+    "sample_abstract_1",
+    "sample_abstract_2"
+  ],
   "features": {
     "enableCache": true,
     "enableOfflineMode": true,

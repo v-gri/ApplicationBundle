@@ -89,7 +89,8 @@ final class BundleContentManager: ObservableObject {
     
     private func loadBundledImages() {
         var loadedImages: [BundledImage] = []
-        
+        let imageNames = appConfig?.effectiveImageNames ?? []
+
         for imageName in imageNames {
             if let image = UIImage(named: imageName) {
                 let bundledImage = BundledImage(
@@ -100,7 +101,6 @@ final class BundleContentManager: ObservableObject {
                     tags: generateTags(from: imageName)
                 )
                 loadedImages.append(bundledImage)
-                print("Loaded image: \(imageName)")
             } else {
                 print("Image not found: \(imageName)")
             }

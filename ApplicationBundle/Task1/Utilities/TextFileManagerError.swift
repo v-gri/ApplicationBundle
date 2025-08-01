@@ -12,6 +12,7 @@ enum TextFileManagerError: LocalizedError {
     case invalidFileName
     case fileNotFound
     case writeError(Error)
+    case appendError(Error)
     case readError(Error)
     case deleteError(Error)
     case directoryListingError(Error)
@@ -26,6 +27,8 @@ enum TextFileManagerError: LocalizedError {
             return "File not found"
         case .writeError(let error):
             return "Failed to write file: \(error.localizedDescription)"
+        case .appendError(let error):
+            return "Failed to append to file: \(error.localizedDescription)"
         case .readError(let error):
             return "Failed to read file: \(error.localizedDescription)"
         case .deleteError(let error):

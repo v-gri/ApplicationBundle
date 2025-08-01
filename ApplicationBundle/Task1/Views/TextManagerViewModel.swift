@@ -23,7 +23,6 @@ final class TextManagerViewModel: ObservableObject {
     private let textManager: TextFileManager?
     
     init() {
-        // Safe initialization TextFileManager
         self.textManager = TextFileManager.create()
         
         if textManager == nil {
@@ -49,11 +48,11 @@ final class TextManagerViewModel: ObservableObject {
         
         isLoading = true
         
-        let result = textManager.saveTextFile(content: inputText, fileName: fileName)
-        
+        let result = textManager.appendTextToFile(content: inputText, fileName: fileName + ".txt")
+
         switch result {
         case .success:
-            showSuccess("File saved successfully!")
+            showSuccess("Text appended to '\(fileName).txt' successfully!")
             clearInputFields()
             loadSavedFiles()
             didSaveSuccessfully = true
